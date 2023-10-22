@@ -7,4 +7,3 @@ Demo Java SpringBoot Application
   - GET localhost:8080/api/v1/person
   - GET localhost:8080/api/v1/person/:id
   - PUT localhost:8080/api/v1/person/:id
-  - 
