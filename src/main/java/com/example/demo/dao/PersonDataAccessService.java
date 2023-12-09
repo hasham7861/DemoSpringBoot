@@ -2,6 +2,7 @@ package com.example.demo.dao;
 
 import com.example.demo.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -20,7 +21,18 @@ public class PersonDataAccessService implements PersonDao{
     }
     @Override
     public int insertPerson(UUID id, Person person) {
-        return 0;
+        final String sql = "INSERT INTO person (id, name) VALUES (?, ?)";
+
+        try {
+            int rowsAffected = jdbcTemplate.update(sql, id, person.getName());
+            return rowsAffected;
+        } catch (DataAccessException e) {
+            // Log the exception or handle it as needed
+            e.printStackTrace();
+
+            // Return false to indicate the insert was not successful
+            return -1;
+        }
     }
 
     @Override
